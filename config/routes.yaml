@@ -4,9 +4,9 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
-app_register:
-         path: /register
-         controller: App\Controller\Security\RegisterController::register
-# app_security_login:
-#     path: /login
-#     controller: App\Controller\SecurityLoginController::login
+app_security_register:
+     path: /security/register
+     controller: App\Controller\Security\RegisterController::register
+app_security_login:
+    path: /security/login
+    controller: App\Controller\Security\LoginController::login

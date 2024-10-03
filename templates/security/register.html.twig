@@ -1,24 +1,20 @@
-
-{# templates/registration/register.html.twig #}
 {% extends 'base.html.twig' %}
-
 {% block title %}Register{% endblock %}
 {% block body %}
-
-    <h1>Register</h1>
-
-    {{ form_start(registrationForm) }}
-        {{ form_widget(registrationForm) }}
-        <button class="btn">Register</button>
-    {{ form_end(registrationForm) }}
-
-{% if registrationForm.vars.errors|length > 0 %}
-        <div style="color: red;">
-            <ul>
-                {% for error in registrationForm.vars.errors %}
-                    <li>{{ error.message }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
+    <div class="registration-container">
+        <h1>Create an account</h1>
+{% if errorMessage is not empty %}
+    <div class="error-messages">
+        <ul>
+            {% for error in errorMessage %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+        {{ form_start(registrationForm, {'attr': {'class': 'registration-form'}}) }}
+            {{ form_widget(registrationForm) }}
+            <button type="submit" class="btn">Create</button>
+        {{ form_end(registrationForm) }}
+    </div>
 {% endblock %}

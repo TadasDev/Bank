@@ -23,6 +23,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private $password;
 
+    #[ORM\Column(length: 255)]
+    private ?string $firstName = null; // New property
+
+    #[ORM\Column(length: 255)]
+    private ?string $lastName = null; // New property
+
     /**
      * @var list<string> The user roles
      */
@@ -54,6 +60,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->password = $password;
 
+        return $this;
+    }
+
+    public function getFirstName(): ?string // Getter for firstName
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self // Setter for firstName
+    {
+        $this->firstName = $firstName;
+        return $this;
+    }
+
+    public function getLastName(): ?string // Getter for lastName
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self // Setter for lastName
+    {
+        $this->lastName = $lastName;
         return $this;
     }
 

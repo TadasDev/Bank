@@ -21,15 +21,18 @@ class RegisterController extends AbstractController
         $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Check if the email already exists
+        // Check if form is submitted
+        if ($form->isSubmitted()) {
+            // Check for existing users first
             $existingUser = $entityManager->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
 
             if ($existingUser) {
-                // Add an error to the form for the email field
+                // Add the error directly to the form if the email is already in use
                 $form->get('email')->addError(new FormError('This email is already in use.'));
-            } else {
-                // Hash the password
+            }
+
+            // Validate the form only if there is no existing user
+            if ($form->isValid()) {
                 $user->setPassword(
                     $passwordHasher->hashPassword(
                         $user,
@@ -37,17 +40,21 @@ class RegisterController extends AbstractController
                     )
                 );
 
-                // Persist the user
                 $entityManager->persist($user);
                 $entityManager->flush();
 
-                // Redirect to the login page
-                return $this->redirectToRoute('app_login');
+                return $this->redirectToRoute('security/login.html.twig');
             }
         }
-
+         // Collect error messages
+        $errorMessages = [];
+            foreach ($form->getErrors(true, false) as $error) {
+                    $errorMessages[] = $error;
+        }
+        
         return $this->render('security/register.html.twig', [
             'registrationForm' => $form->createView(),
+            'errorMessage' => $errorMessages,
         ]);
     }
 }
