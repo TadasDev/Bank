@@ -1,20 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SecurityController!{% endblock %}
+{% block title %}Login{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="container mt-5">
+    <h1 class="text-center">Login</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <div class="card mx-auto" style="max-width: 400px;"> <!-- Centered card -->
+        <div class="card-body">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/T.Labutis/Desktop/Programavimas/symfony/bank/src/Controller/SecurityController.php</code></li>
-        <li>Your template at <code>C:/Users/T.Labutis/Desktop/Programavimas/symfony/bank/templates/security/index.html.twig</code></li>
-    </ul>
+            {% if loginForm.vars.errors|length > 0 %}
+                    <ul class="list-unstyled alert alert-danger"> <!-- Adjusted padding -->
+                        {% for error in loginForm.vars.errors %}
+                            <li>{{ error.message }}</li>
+                        {% endfor %}
+                    </ul>
+            {% endif %}
+
+            {{ form_start(loginForm) }}
+
+            <div class="mb-3"> <!-- Bootstrap margin-bottom class -->
+                {{ form_label(loginForm.email) }}
+                {{ form_widget(loginForm.email, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            <div class="mb-3"> <!-- Bootstrap margin-bottom class -->
+                {{ form_label(loginForm.password) }}
+                {{ form_widget(loginForm.password, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            <div class="form-group text-end">
+                <button type="submit" class="btn btn-primary w-25">Login</button>
+            </div>
+
+            {{ form_end(loginForm) }}
+
+        </div>
+    </div>
 </div>
+
 {% endblock %}

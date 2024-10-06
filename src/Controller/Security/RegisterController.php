@@ -14,47 +14,32 @@ use Symfony\Component\Form\FormError;
 
 class RegisterController extends AbstractController
 {
-    #[Route('/security/register', name: 'app_security_register', methods:['POST'])]
+    #[Route('/security/register', name: 'app_security_register', methods: ['GET','POST'])]
     public function register(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
-
-        // Check if form is submitted
-        if ($form->isSubmitted()) {
-            // Check for existing users first
+    
+        if ($form->isSubmitted() && $form->isValid()) {
             $existingUser = $entityManager->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
-
             if ($existingUser) {
-                // Add the error directly to the form if the email is already in use
-                $form->get('email')->addError(new FormError('This email is already in use.'));
-            }
-
-            // Validate the form only if there is no existing user
-            if ($form->isValid()) {
+                $form->addError(new FormError('This email is already in use.'));
+            } else {
                 $user->setPassword(
                     $passwordHasher->hashPassword(
                         $user,
                         $form->get('password')->getData()
                     )
                 );
-
                 $entityManager->persist($user);
                 $entityManager->flush();
-
-                return $this->redirectToRoute('security/login.html.twig');
+                return $this->redirectToRoute('dashboard/main.html.twig');
             }
         }
-         // Collect error messages
-        $errorMessages = [];
-            foreach ($form->getErrors(true, false) as $error) {
-                    $errorMessages[] = $error;
-        }
-        
+    
         return $this->render('security/register.html.twig', [
-            'registrationForm' => $form->createView(),
-            'errorMessage' => $errorMessages,
+            'registrationForm' => $form,
         ]);
     }
 }
