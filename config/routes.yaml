@@ -10,3 +10,6 @@ app_security_register:
 app_security_login:
     path: /security/login
     controller: App\Controller\Security\LoginController::login
+app_dashboard:
+    path: /dashboard
+    controller: App\Controller\DashboardController::index

@@ -33,7 +33,7 @@ class LoginController extends AbstractController
                 if (!$passwordEncoder->isPasswordValid($existingUser, $submittedPassword)) {
                     $form->addError(new FormError('Incorrect password.'));
                 } else {
-                    return $this->redirectToRoute('dashboard/main.html.twig');
+                    return $this->redirectToRoute('app_dashboard');
                 }
             }
         }

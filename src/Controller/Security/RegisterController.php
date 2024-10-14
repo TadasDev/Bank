@@ -34,7 +34,8 @@ class RegisterController extends AbstractController
                 );
                 $entityManager->persist($user);
                 $entityManager->flush();
-                return $this->redirectToRoute('dashboard/main.html.twig');
+                
+                return $this->redirectToRoute('app_dashboard');
             }
         }
     

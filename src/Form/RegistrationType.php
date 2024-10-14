@@ -1,10 +1,8 @@
 <?php
 
-// src/Form/RegistrationType.php
-
 namespace App\Form;
 
-use App\Entity\User; // Make sure to import your User entity
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
