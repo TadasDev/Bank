@@ -6,34 +6,32 @@
 <div class="container mt-5">
     <h1 class="text-center">Login</h1>
 
-    <div class="card mx-auto" style="max-width: 400px;"> <!-- Centered card -->
-        <div class="card-body">
+    <div class="card mx-auto" style="max-width: 400px;">
+        <div class="card-body">  
 
-            {% if loginForm.vars.errors|length > 0 %}
-                    <ul class="list-unstyled alert alert-danger"> <!-- Adjusted padding -->
-                        {% for error in loginForm.vars.errors %}
-                            <li>{{ error.message }}</li>
-                        {% endfor %}
-                    </ul>
-            {% endif %}
+          {% if error %}
+            <div class="alert alert-danger">
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
+        {% endif %}
 
-            {{ form_start(loginForm) }}
+             {{ form_start(login_form, { 'action': path('app_security_login'), 'method': 'POST' }) }}
 
-            <div class="mb-3"> <!-- Bootstrap margin-bottom class -->
-                {{ form_label(loginForm.email) }}
-                {{ form_widget(loginForm.email, {'attr': {'class': 'form-control'}}) }}
+            <div class="mb-3">
+                {{ form_label(login_form.email) }}
+                {{ form_widget(login_form.email, {'attr': {'class': 'form-control'}}) }}
             </div>
 
-            <div class="mb-3"> <!-- Bootstrap margin-bottom class -->
-                {{ form_label(loginForm.password) }}
-                {{ form_widget(loginForm.password, {'attr': {'class': 'form-control'}}) }}
+            <div class="mb-3">
+                {{ form_label(login_form.password) }}
+                {{ form_widget(login_form.password, {'attr': {'class': 'form-control'}}) }}
             </div>
 
             <div class="form-group text-end">
                 <button type="submit" class="btn btn-primary w-25">Login</button>
             </div>
 
-            {{ form_end(loginForm) }}
+            {{ form_end(login_form) }}
 
         </div>
     </div>
