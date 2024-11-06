@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}InvestmentPro | Your Investment Platform{% endblock %}
+
+{% block body %}
+<main role="main">
+  <!-- Hero Section -->
+  <section class="jumbotron text-center" style="background-image: url('https://via.placeholder.com/1600x600.png?text=Hero+Image'); background-size: cover; background-position: center center; color: white; padding: 80px 0;">
+    <div class="container py-5">
+      <h1 class="jumbotron-heading display-4 font-weight-bold">Transform Your Future with Real Estate Investments</h1>
+      <p class="lead text-muted mb-4">Unlock the potential of real estate investing and start building long-term wealth today. Explore curated properties that align with your financial goals and take your first step towards passive income and capital growth.</p>
+      <p>
+        <a href="#" class="btn btn-success btn-lg my-2">Start Your Investment Journey</a>
+        <a href="#" class="btn btn-light btn-lg my-2">Browse Our Properties</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Property Listings Section -->
+  <div class="album py-5" style="background-color: #f8f9fa;">
+    <div class="container">
+      <div class="row">
+        {% for i in 1..6 %}
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm border-light rounded">
+            <img class="card-img-top" src="https://via.placeholder.com/288x225.png?text=Property+{{ i }}" alt="Property image">
+            <div class="card-body">
+              <h5 class="card-title">Property {{ i }}</h5>
+              <p class="card-text">Invest in this beautiful property located in a prime location. The estimated return on investment is high, with an expected appreciation in value over the next few years.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a href="#" class="btn btn-sm btn-outline-secondary">View</a>
+                  <a href="#" class="btn btn-sm btn-outline-success">Invest Now</a>
+                </div>
+                <small class="text-muted">Available Now</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Investment List{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Investment List</h1>
+
+    <!-- Sorting Dropdown -->
+    <div class="mb-3">
+        <label for="sortOptions" class="form-label">Sort by:</label>
+        <select id="sortOptions" class="form-select" onchange="sortInvestments()">
+            <option value="default">Default</option>
+            <option value="recentlyAdded">Recently added</option>
+            <option value="fundedPrice">Funded Price</option>
+            <option value="interestRate">Interest Rate</option>
+        </select>
+    </div>
+
+    <!-- Investment Cards Grid -->
+    <div class="row">
+        <!-- Investment Example 1 -->
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4"> <!-- Large: 4 per row, Medium: 3 per row, Small: 2 per row -->
+            <div class="card investment h-100"> <!-- Added h-100 for uniform height -->
+                <img class="card-img-top" src="photo1.jpg" alt="Eco-friendly Community">
+                <div class="card-body d-flex flex-column"> <!-- Flex column for consistent body height -->
+                    <h5 class="card-title">Eco-friendly Community</h5>
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Investment Example 2 -->
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="card investment h-100">
+                <img class="card-img-top" src="photo2.jpg" alt="Innovative Tech Solutions">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Innovative Tech Solutions</h5>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Investment Example 3 -->
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="card investment h-100">
+                <img class="card-img-top" src="photo3.jpg" alt="Renewable Energy Initiative">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Renewable Energy Initiative</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Investment Example 4 -->
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="card investment h-100">
+                <img class="card-img-top" src="photo4.jpg" alt="Healthcare Advancement">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Healthcare Advancement</h5>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Investment Example 5 -->
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="card investment h-100">
+                <img class="card-img-top" src="photo5.jpg" alt="Urban Development">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Urban Development</h5>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Investment Example 6 -->
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="card investment h-100">
+                <img class="card-img-top" src="photo6.jpg" alt="Agricultural Innovation">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Agricultural Innovation</h5>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Investment Example 7 -->
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="card investment h-100">
+                <img class="card-img-top" src="photo7.jpg" alt="Technology Development">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Technology Development</h5>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Investment Example 8 -->
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="card investment h-100">
+                <img class="card-img-top" src="photo8.jpg" alt="Transportation Solutions">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Transportation Solutions</h5>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
