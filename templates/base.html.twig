@@ -18,7 +18,7 @@
         <!-- Top Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">InvestmentPro</a>
+                <a class="navbar-brand" href="{{ path('app_home') }}">InvestmentPro</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -44,76 +44,76 @@
         <!-- Sidebar and Main Content Layout -->
         <div class="container-fluid mt-5">
             <div class="row">
-                <!-- Sidebar (Fixed on the left) -->
-                {% if app.user %}
-                <div class="col-md-3 col-lg-2 position-fixed bg-dark text-white p-3 sidebar" style="top: 60px; left: 0; height: calc(100vh - 60px);">
-                    <ul class="nav flex-column">
-                        <!-- Dashboard Item (always active after login) -->
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">
-                                <span class="nav-icon">🏠</span> Dashboard
-                            </a>
-                        </li>
-                        <!-- Accounts Menu -->
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" data-bs-toggle="collapse" href="#accountsSubmenu" role="button" aria-expanded="false" aria-controls="accountsSubmenu">
-                                <span class="nav-icon">💼</span> Accounts <span class="collapse-icon">▼</span>
-                            </a>
-                            <div class="collapse" id="accountsSubmenu">
-                                <ul class="nav flex-column ps-4">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Savings Account</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Investment Account</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <!-- Projects Menu -->
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" data-bs-toggle="collapse" href="#projectsSubmenu" role="button" aria-expanded="false" aria-controls="projectsSubmenu">
-                                <span class="nav-icon">📊</span> Projects <span class="collapse-icon">▼</span>
-                            </a>
-                            <div class="collapse" id="projectsSubmenu">
-                                <ul class="nav flex-column ps-4">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">My Investments</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">In Progress Projects</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ path('app_investment') }}">Recently Added Projects</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <!-- Settings Menu -->
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" data-bs-toggle="collapse" href="#settingsSubmenu" role="button" aria-expanded="false" aria-controls="settingsSubmenu">
-                                <span class="nav-icon">⚙️</span> Settings <span class="collapse-icon">▼</span>
-                            </a>
-                            <div class="collapse" id="settingsSubmenu">
-                                <ul class="nav flex-column ps-4">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Profile Settings</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Notification Settings</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                {% else %}
-                <!-- Empty sidebar for non-logged-in users (no space taken) -->
-                <div class="col-0 d-none d-md-block"></div>
-                {% endif %}
+            
+<!-- Sidebar (Fixed on the left for logged-in users, using Bootstrap collapse classes) -->
+{% if app.user %}
+<div class="bg-dark text-white p-3 sidebar" style="position: fixed; top: 60px; left: 0; height: calc(100vh - 60px); width: 280px; overflow-y: auto;">
+    <ul class="list-unstyled ps-0">
+        <!-- Dashboard Menu -->
+        <li class="mb-1">
+            <button class="btn btn-toggle align-items-center rounded text-white w-100 text-start" data-bs-toggle="collapse" data-bs-target="#dashboardMenu" aria-expanded="true">
+                <i class="bi bi-house-fill me-2"></i> Dashboard
+            </button>
+            <div class="collapse show" id="dashboardMenu">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ps-3">
+                    <li><a href="{{ path('app_dashboard') }}" class="link-light rounded">Overview</a></li>
+                    <li><a href="#" class="m-4 link-light rounded">Updates</a></li>
+                    <li><a href="#" class="link-light rounded">Reports</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Accounts Menu -->
+        <li class="mb-1">
+            <button class="btn btn-toggle align-items-center rounded text-white w-100 text-start" data-bs-toggle="collapse" data-bs-target="#accountsMenu" aria-expanded="false">
+                <i class="bi bi-briefcase-fill me-2"></i> Accounts
+            </button>
+            <div class="collapse" id="accountsMenu">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ps-3">
+                    <li><a href="#" class="link-light rounded">Savings Account</a></li>
+                    <li><a href="#" class="link-light rounded">Investment Account</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Projects Menu -->
+        <li class="mb-1">
+            <button class="btn btn-toggle align-items-center rounded text-white w-100 text-start" data-bs-toggle="collapse" data-bs-target="#projectsMenu" aria-expanded="false">
+                <i class="bi bi-bar-chart-fill me-2"></i> Projects
+            </button>
+            <div class="collapse" id="projectsMenu">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ps-3">
+                    <li><a href="#" class="link-light rounded">My Investments</a></li>
+                    <li><a href="#" class="link-light rounded">In Progress Projects</a></li>
+                    <li><a href="{{ path('app_investment') }}" class="link-light rounded">Recently Added Projects</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Settings Menu -->
+        <li class="mb-1">
+            <button class="btn btn-toggle align-items-center rounded text-white w-100 text-start" data-bs-toggle="collapse" data-bs-target="#settingsMenu" aria-expanded="false">
+                <i class="bi bi-gear-fill me-2"></i> Settings
+            </button>
+            <div class="collapse" id="settingsMenu">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ps-3">
+                    <li><a href="#" class="link-light rounded">Profile Settings</a></li>
+                    <li><a href="#" class="link-light rounded">Notification Settings</a></li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</div>
+{% else %}
+<!-- No sidebar for non-logged-in users -->
+<div class="d-none"></div>
+{% endif %}
+
+
+
 
                 <!-- Main Content Area -->
-                <div class="col-md-9 col-lg-10 ms-auto" style="padding-top: 60px; {% if not app.user %} margin-left: 0; {% else %} margin-left: 250px; {% endif %}">
+                <div class="col-md-9 col-lg-10 m-auto" style="padding-top: 60px; {% if not app.user %} margin-left: 0; {% else %} margin-left: 250px; {% endif %}">
                     <div class="content">
                         {% block body %}
                         <!-- Content goes here -->

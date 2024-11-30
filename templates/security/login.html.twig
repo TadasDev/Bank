@@ -3,37 +3,35 @@
 {% block title %}Login{% endblock %}
 
 {% block body %}
-<div class="container mt-5">
-    <h1 class="text-center mb-4">Login</h1>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Login</h1>
+        <div class="card mx-auto shadow" style="max-width: 400px;">
+            <div class="card-body">
 
-    <div class="card mx-auto shadow" style="max-width: 400px;">
-        <div class="card-body p-4">
+                {% if error %}
+                    <div class="alert alert-danger text-center">
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    </div>
+                {% endif %}
 
-            {% if error %}
-                <div class="alert alert-danger text-center">
-                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                {{ form_start(login_form, { 'action': path('app_security_login'), 'method': 'POST' }) }}
+
+                <div class="mb-3">
+                    {{ form_label(login_form.email, 'Email Address', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(login_form.email, {'attr': {'class': 'form-control', 'placeholder': 'Enter your email'}}) }}
                 </div>
-            {% endif %}
 
-            {{ form_start(login_form, { 'action': path('app_security_login'), 'method': 'POST' }) }}
+                <div class="mb-3">
+                    {{ form_label(login_form.password, 'Password', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(login_form.password, {'attr': {'class': 'form-control', 'placeholder': 'Enter your password'}}) }}
+                </div>
 
-            <div class="mb-3">
-                {{ form_label(login_form.email, 'Email Address', {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(login_form.email, {'attr': {'class': 'form-control', 'placeholder': 'Enter your email'}}) }}
+                <div class="form-group text-end">
+                    <button type="submit" class="btn btn-primary w-25">Submit</button>
+                </div>
+
+                {{ form_end(login_form) }}
             </div>
-
-            <div class="mb-3">
-                {{ form_label(login_form.password, 'Password', {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(login_form.password, {'attr': {'class': 'form-control', 'placeholder': 'Enter your password'}}) }}
-            </div>
-
-            <div class="text-end">
-                <button type="submit" class="btn btn-primary w-100">Login</button>
-            </div>
-
-            {{ form_end(login_form) }}
-            
         </div>
     </div>
-</div>
 {% endblock %}

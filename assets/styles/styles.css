@@ -1,71 +1,21 @@
-/* Ensure body and html are full height */
-body, html {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+.btn-toggle {
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    color: #adb5bd;
+    background-color: transparent;
+    border: none;
 }
 
-/* Apply the primary fonts */
-body {
-    font-family: 'Roboto', sans-serif;
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
+.btn-toggle:hover, .btn-toggle:focus {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
-h1, h2, h3 {
-    font-family: 'Lora', serif;
+.btn-toggle-nav a {
+    padding: 0.25rem 0.5rem;
+    color: #adb5bd;
 }
 
-/* Sidebar */
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 250px; /* Fixed width for sidebar */
-    height: 100%;
-    background-color: #343a40;
-    color: white;
-    padding-top: 60px; /* Space for fixed navbar */
-    overflow-y: auto; /* Make sidebar scrollable */
-    z-index: 1050; /* Ensure sidebar stays on top */
-    transition: transform 0.3s ease-in-out; /* Smooth transition for sliding */
-}
-
-/* Main content */
-.content {
-    flex-grow: 1;
-    margin-left: 250px; /* Leave space for sidebar */
-    padding: 20px;
-}
-
-/* Footer stays at the bottom */
-footer {
-    margin-top: auto;
-    padding: 20px 0;
-    background-color: #f8f9fa;
-    text-align: center;
-    font-size: 14px;
-    color: #666;
-}
-
-/* Responsive adjustments for small screens */
-@media (max-width: 767px) {
-    .sidebar {
-        position: absolute;
-        top: 0;
-        left: -250px; /* Initially off-screen */
-        width: 250px;
-        height: 100%;
-        background-color: #343a40;
-    }
-
-    /* When sidebar is open */
-    .sidebar.open {
-        left: 0;
-    }
-
-    .content {
-        margin-left: 0; /* No left margin on small screens */
-    }
+.btn-toggle-nav a:hover {
+    color: #fff;
 }
