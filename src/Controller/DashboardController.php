@@ -17,4 +17,11 @@ class DashboardController extends AbstractController
             'controller_name' => 'DashboardController',
         ]);
     }
+
+    #[Route('/dashboard/reports', name: 'app_dashboard_reports', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
+    public function reports(): Response
+    {
+        return $this->render('dashboard/reports.html.twig');
+    }
 }

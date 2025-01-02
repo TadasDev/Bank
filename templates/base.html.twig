@@ -8,189 +8,337 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('styles.css') }}">
+    {{ encore_entry_link_tags('app') }}
+    
+    <style>
+        body {
+            padding-top: 56px;
+        }
+        
+        .main-content {
+            min-height: calc(100vh - 56px - 80px);
+            padding: 2rem 1.5rem;
+            transition: margin-left 0.3s;
+        }
+
+        .main-content.logged-in {
+            margin-left: 280px;
+        }
+
+        .offcanvas:not(.show) ~ .main-content.logged-in {
+            margin-left: 0;
+        }
+
+        .offcanvas {
+            width: 280px !important;
+            z-index: 1029 !important;
+        }
+
+        .offcanvas-header {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .toggle-sidebar {
+            position: fixed;
+            left: 0;
+            top: calc(56px + (100vh - 56px) / 2);
+            transform: translateY(-50%);
+            background: #198754;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            width: 25px;
+            height: 40px;
+            z-index: 1029;
+            padding: 0;
+            transition: left 0.3s;
+        }
+
+        .toggle-sidebar.shifted {
+            left: 280px;
+        }
+
+        .toggle-sidebar:hover {
+            background: #157347;
+        }
+        
+        .main-content.logged-out {
+            width: 100%;
+            padding: 2rem 1.5rem;
+        }
+        
+        footer {
+            height: 80px;
+            margin-top: auto;
+        }
+        
+        .navbar {
+            z-index: 1030;
+        }
+        
+        .content {
+            padding: 1rem;
+            background: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        }
+        
+        .link-light.active {
+            color: #198754 !important;
+            font-weight: bold;
+        }
+
+        .link-light {
+            text-decoration: none;
+            padding: 0.5rem;
+            display: block;
+            transition: all 0.2s ease;
+        }
+
+        .link-light:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 0.25rem;
+        }
+
+        .btn-toggle {
+            padding: 0.5rem;
+            border: 0;
+            background: transparent;
+            transition: all 0.2s ease;
+        }
+
+        .btn-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
 </head>
 
-<body class="d-flex flex-column vh-100">
-    <div class="flex-grow-1">
-        {% block navbar %}
-        <!-- Top Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top border-bottom border-success">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{{ path('app_home') }}">InvestmentPro</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+<body class="d-flex flex-column">
+    {% block navbar %}
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom fixed-top py-2">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand fs-4 fw-semibold text-success d-flex align-items-center" href="{{ path('app_home') }}">
+                <i class="bi bi-building fs-3 me-2"></i>InvestmentPro
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="{{ path('app_home') }}">Home</a>
+                    </li>
                     {% if app.user %}
-                    <div class="d-flex align-items-center">
-                        <img src="{{ asset('profile-placeholder.jpg') }}" alt="Profile Picture" class="profile-picture">
-                        <span class="navbar-text me-3">Hello, {{ app.user.getFirstName }}</span>
-                        <form action="{{ path('app_security_logout') }}" method="post" style="display: inline;">
-                            <button type="submit" class="btn btn-outline-success btn-sm">Logout</button>
-                        </form>
-                    </div>
+                        <li class="nav-item">
+                            <a class="nav-link px-3" href="#">Properties</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link px-3" href="#">Investments</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="#">About</a>
+                    </li>
+                </ul>
+
+                <div class="d-flex align-items-center">
+                    {% if app.user %}
+                        <a href="#" class="btn btn-outline-success me-3">
+                            <i class="bi bi-plus-lg me-2"></i>Invest Now
+                        </a>
+                        <div class="d-flex align-items-center bg-light rounded-pill px-3 py-2">
+                            <img src="{{ asset('build/images/profile-placeholder.jpg') }}" alt="Profile Picture" 
+                                 class="rounded-circle me-2" style="width: 32px; height: 32px;">
+                            <span class="d-none d-sm-inline me-3">{{ app.user.getFirstName }}</span>
+                            <form action="{{ path('app_security_logout') }}" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
+                            </form>
+                        </div>
                     {% else %}
-                    <a class="btn btn-outline-success btn-sm me-2" href="{{ path('app_security_login') }}">Login</a>
-                    <a class="btn btn-outline-success btn-sm" href="{{ path('app_security_register') }}">Register</a>
+                        <a class="btn btn-outline-success me-2" href="{{ path('app_security_login') }}">Login</a>
+                        <a class="btn btn-success" href="{{ path('app_security_register') }}">Register</a>
                     {% endif %}
                 </div>
             </div>
-        </nav>
-        {% endblock %}
+        </div>
+    </nav>
+    {% endblock %}
 
-        <!-- Sidebar and Main Content Layout -->
-        <div class="container-fluid mt-5">
-            <div class="row">
+    <!-- Main Container -->
+    <div class="flex-grow-1">
+        {% if app.user %}
+        <!-- Sidebar Toggle Button -->
+        <button class="toggle-sidebar" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
+            <i class="bi bi-chevron-right" id="toggleIcon"></i>
+        </button>
+        
+        <!-- Sidebar -->
+        <div class="offcanvas offcanvas-start show bg-dark text-white" data-bs-backdrop="false" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel" style="top: 56px; height: calc(100% - 56px);">
 
-{% if app.user %}
-<!-- Sidebar (Fixed on the left for logged-in users) -->
-<div class="bg-dark text-white p-3 sidebar" style="position: fixed; top: 55px; left: 0; height: calc(100vh - 60px); width: 280px; overflow-y: auto;">
-    <ul class="list-unstyled ps-0">
-        <!-- Dashboard Menu -->
-        <li class="mb-1">
-            <button class="btn btn-toggle align-items-center rounded text-white w-100 text-start" 
-                    data-bs-toggle="collapse" 
-                    data-bs-target="#dashboardMenu" 
-                    aria-expanded="false" 
-                    id="dashboard-toggle" 
-                    onclick="setActiveMenu('dashboard')">
-                <i class="bi bi-house-door me-2"></i> Dashboard
-            </button>
-            <div class="collapse" id="dashboardMenu">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ps-3">
-                    <li>
-                        <a href="{{ path('app_dashboard') }}" class="link-light rounded" id="dashboard-overview" onclick="setActiveLink('dashboard-overview')">
-                            Overview
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="link-light rounded" id="dashboard-updates" onclick="setActiveLink('dashboard-updates')">
-                            Updates
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="link-light rounded" id="dashboard-reports" onclick="setActiveLink('dashboard-reports')">
-                            Reports
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-
-        <!-- Accounts Menu -->
-        <li class="mb-1">
-            <button class="btn btn-toggle align-items-center rounded text-white w-100 text-start" 
-                    data-bs-toggle="collapse" 
-                    data-bs-target="#accountsMenu" 
-                    aria-expanded="false" 
-                    id="accounts-toggle" 
-                    onclick="setActiveMenu('accounts')">
-                <i class="bi bi-bank me-2"></i> Accounts
-            </button>
-            <div class="collapse" id="accountsMenu">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ps-3">
-                    <li>
-                        <a href="#" class="link-light rounded" id="accounts-savings" onclick="setActiveLink('accounts-savings')">
-                            Savings Account
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="link-light rounded" id="accounts-investment" onclick="setActiveLink('accounts-investment')">
-                            Investment Account
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-
-        <!-- Projects Menu -->
-        <li class="mb-1">
-            <button class="btn btn-toggle align-items-center rounded text-white w-100 text-start" 
-                    data-bs-toggle="collapse" 
-                    data-bs-target="#projectsMenu" 
-                    aria-expanded="false" 
-                    id="projects-toggle" 
-                    onclick="setActiveMenu('projects')">
-                <i class="bi bi-bar-chart me-2"></i> Projects
-            </button>
-            <div class="collapse" id="projectsMenu">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ps-3">
-                    <li>
-                        <a href="#" class="link-light rounded" id="projects-investments" onclick="setActiveLink('projects-investments')">
-                            My Investments
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="link-light rounded" id="projects-in-progress" onclick="setActiveLink('projects-in-progress')">
-                            In Progress Projects
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ path('app_investment') }}" class="link-light rounded" id="projects-recent" onclick="setActiveLink('projects-recent')">
-                            Recently Added Projects
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-
-        <!-- Settings Menu -->
-        <li class="mb-1">
-            <button class="btn btn-toggle align-items-center rounded text-white w-100 text-start" 
-                    data-bs-toggle="collapse" 
-                    data-bs-target="#settingsMenu" 
-                    aria-expanded="false" 
-                    id="settings-toggle" 
-                    onclick="setActiveMenu('settings')">
-                <i class="bi bi-gear me-2"></i> Settings
-            </button>
-            <div class="collapse" id="settingsMenu">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ps-3">
-                    <li>
-                        <a href="#" class="link-light rounded" id="settings-profile" onclick="setActiveLink('settings-profile')">
-                            Profile Settings
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="link-light rounded" id="settings-notifications" onclick="setActiveLink('settings-notifications')">
-                            Notification Settings
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-    </ul>
-</div>
-{% endif %}
-
-                <!-- Main Content Area -->
-                <div class="col-md-9 col-lg-10 m-auto main-content {% if app.user %}logged-in{% else %}logged-out{% endif %}">
-                    <div class="content">
-                        {% block body %}
-                        <!-- Content goes here -->
-                        {% endblock %}
+            <div class="offcanvas-body px-3 py-2">
+            <ul class="list-unstyled ps-0 mb-0 mt-2">
+                <!-- Dashboard Menu -->
+                <li class="mb-1">
+                    <button class="btn btn-toggle align-items-center rounded text-white w-100 text-start" 
+                            data-bs-toggle="collapse" 
+                            data-bs-target="#dashboardMenu" 
+                            aria-expanded="false" 
+                            id="dashboard-toggle" 
+                            onclick="setActiveMenu('dashboard')">
+                        <i class="bi bi-house-door me-2"></i> Dashboard
+                    </button>
+                    <div class="collapse" id="dashboardMenu">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ps-3">
+                            <li>
+                                <a href="{{ path('app_dashboard') }}" class="link-light rounded" id="dashboard-overview" onclick="setActiveLink('dashboard-overview')">
+                                    Overview
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('app_dashboard_reports') }}" class="link-light rounded" id="dashboard-reports" onclick="setActiveLink('dashboard-reports')">
+                                    Reports
+                                </a>
+                            </li>
+                        </ul>
                     </div>
-                </div>
+                </li>
+
+                <!-- Accounts Menu -->
+                <li class="mb-1">
+                    <button class="btn btn-toggle align-items-center rounded text-white w-100 text-start" 
+                            data-bs-toggle="collapse" 
+                            data-bs-target="#accountsMenu" 
+                            aria-expanded="false" 
+                            id="accounts-toggle" 
+                            onclick="setActiveMenu('accounts')">
+                        <i class="bi bi-bank me-2"></i> Accounts
+                    </button>
+                    <div class="collapse" id="accountsMenu">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ps-3">
+                            <li>
+                                <a href="#" class="link-light rounded" id="accounts-investment" onclick="setActiveLink('accounts-investment')">
+                                    Investment Accounts
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Projects Menu -->
+                <li class="mb-1">
+                    <button class="btn btn-toggle align-items-center rounded text-white w-100 text-start" 
+                            data-bs-toggle="collapse" 
+                            data-bs-target="#projectsMenu" 
+                            aria-expanded="false" 
+                            id="projects-toggle" 
+                            onclick="setActiveMenu('projects')">
+                        <i class="bi bi-bar-chart me-2"></i> Projects
+                    </button>
+                    <div class="collapse" id="projectsMenu">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ps-3">
+                            <li>
+                                <a href="#" class="link-light rounded" id="projects-investments" onclick="setActiveLink('projects-investments')">
+                                    My Investments
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="link-light rounded" id="projects-in-progress" onclick="setActiveLink('projects-in-progress')">
+                                    In Progress Projects
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('app_investment') }}" class="link-light rounded" id="projects-recent" onclick="setActiveLink('projects-recent')">
+                                    Recently Added Projects
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Settings Menu -->
+                <li class="mb-1">
+                    <button class="btn btn-toggle align-items-center rounded text-white w-100 text-start" 
+                            data-bs-toggle="collapse" 
+                            data-bs-target="#settingsMenu" 
+                            aria-expanded="false" 
+                            id="settings-toggle" 
+                            onclick="setActiveMenu('settings')">
+                        <i class="bi bi-gear me-2"></i> Settings
+                    </button>
+                    <div class="collapse" id="settingsMenu">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ps-3">
+                            <li>
+                                <a href="#" class="link-light rounded" id="settings-profile" onclick="setActiveLink('settings-profile')">
+                                    Profile Settings
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="link-light rounded" id="settings-notifications" onclick="setActiveLink('settings-notifications')">
+                                    Notification Settings
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
             </div>
         </div>
+        {% endif %}
 
+        <!-- Main Content Area -->
+        <main class="main-content {% if app.user %}logged-in{% else %}logged-out{% endif %}">
+            <div class="content">
+                {% block body %}
+                <!-- Content goes here -->
+                {% endblock %}
+            </div>
+        </main>
     </div>
 
     <!-- Footer -->
     {% block footer %}
-    <footer class="text-center text-black py-4 mt-auto">
-        <p>InvestmentPro platform powered by <a href="https://getbootstrap.com/" class="text-black">Bootstrap</a> and developed by <a href="https://twitter.com/mdo" class="text-black">@TLabPro</a>.</p>
+    <footer class="bg-light text-center text-black py-3">
+        <p class="mb-0">InvestmentPro platform powered by <a href="https://getbootstrap.com/" class="text-black">Bootstrap</a> and developed by <a href="https://twitter.com/mdo" class="text-black">@TLabPro</a>.</p>
     </footer>
     {% endblock %}
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    {{ encore_entry_script_tags('app') }}
 
     <!-- Custom JavaScript for Sidebar and Active Links -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+            const sidebar = document.getElementById('sidebar');
+            const toggleBtn = document.querySelector('.toggle-sidebar');
+            const toggleIcon = document.getElementById('toggleIcon');
+
+            // Handle sidebar state
+            sidebar.addEventListener('show.bs.offcanvas', function () {
+                toggleBtn.classList.add('shifted');
+                toggleIcon.classList.remove('bi-chevron-right');
+                toggleIcon.classList.add('bi-chevron-left');
+            });
+
+            sidebar.addEventListener('hide.bs.offcanvas', function () {
+                toggleBtn.classList.remove('shifted');
+                toggleIcon.classList.remove('bi-chevron-left');
+                toggleIcon.classList.add('bi-chevron-right');
+            });
+
+            // Initialize sidebar state
+            if (sidebar.classList.contains('show')) {
+                toggleBtn.classList.add('shifted');
+                toggleIcon.classList.remove('bi-chevron-right');
+                toggleIcon.classList.add('bi-chevron-left');
+            }
+
+            // Menu and Link Functionality
             const activeMenu = localStorage.getItem('activeMenu');
             const activeLink = localStorage.getItem('activeLink');
 
@@ -215,15 +363,11 @@
         });
 
         function setActiveMenu(menuId) {
-            // Save the active menu in localStorage
             localStorage.setItem('activeMenu', menuId);
         }
 
         function setActiveLink(linkId) {
-            // Save the active link in localStorage
             localStorage.setItem('activeLink', linkId);
-
-            // Highlight the active link
             const allLinks = document.querySelectorAll('.link-light');
             allLinks.forEach(link => link.classList.remove('active'));
             const activeLink = document.getElementById(linkId);
@@ -232,7 +376,5 @@
             }
         }
     </script>
-
 </body>
-
 </html>

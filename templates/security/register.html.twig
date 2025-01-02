@@ -1,49 +1,130 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Register - InvestmentPro{% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">Create an Account</h1>
-        <div class="card mx-auto shadow" style="max-width: 400px;">
-            <div class="card-body">
-            
-                {% if errors is not empty %}
-                    <div class="list-unstyled alert alert-danger">
-                        <ul>
-                        {% for error in errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                         </ul>
+    <div class="container-fluid">
+        <div class="row justify-content-center align-items-center min-vh-100">
+            <div class="col-12 col-sm-10 col-md-10 col-lg-3">
+                <div class="card border-0 shadow-lg rounded-3">
+                    <div class="card-header text-center border-0 bg-white pt-5 pb-2">
+                        <h2 class="display-6 text-success fw-semibold mb-3">Create Account</h2>
+                        <p class="text-muted fs-5 mb-0">Please fill in your information to register</p>
+                    </div>
+                    
+                    <div class="card-body px-4 px-md-5 pb-5">
+                        {% if errors is not empty %}
+                            <div class="alert alert-danger text-center fs-5 mb-4">
+                                <ul class="list-unstyled mb-0">
+                                    {% for error in errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+
+                        {{ form_start(registration_form) }}
+                        
+                        <div class="mb-4">
+                            {{ form_label(registration_form.firstName, 'First Name', {'label_attr': {'class': 'form-label fw-semibold mb-3 fs-5'}}) }}
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class="bi bi-person fs-4"></i>
+                                </span>
+                                {{ form_widget(registration_form.firstName, {
+                                    'attr': {
+                                        'class': 'form-control border-start-0',
+                                        'placeholder': 'Enter your first name'
+                                    }
+                                }) }}
+                            </div>
+                            {{ form_errors(registration_form.firstName) }}
                         </div>
-                {% endif %}
 
-                {{ form_start(registration_form) }}
-                <div class="mb-3">
-                    {{ form_label(registration_form.firstName) }}
-                    {{ form_widget(registration_form.firstName, {'attr': {'class': 'form-control'}}) }}
-                </div>
+                        <div class="mb-4">
+                            {{ form_label(registration_form.lastName, 'Last Name', {'label_attr': {'class': 'form-label fw-semibold mb-3 fs-5'}}) }}
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class="bi bi-person fs-4"></i>
+                                </span>
+                                {{ form_widget(registration_form.lastName, {
+                                    'attr': {
+                                        'class': 'form-control border-start-0',
+                                        'placeholder': 'Enter your last name'
+                                    }
+                                }) }}
+                            </div>
+                            {{ form_errors(registration_form.lastName) }}
+                        </div>
 
-                <div class="mb-3">
-                    {{ form_label(registration_form.lastName) }}
-                    {{ form_widget(registration_form.lastName, {'attr': {'class': 'form-control'}}) }}
-                </div>
+                        <div class="mb-4">
+                            {{ form_label(registration_form.email, 'Email Address', {'label_attr': {'class': 'form-label fw-semibold mb-3 fs-5'}}) }}
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class="bi bi-envelope fs-4"></i>
+                                </span>
+                                {{ form_widget(registration_form.email, {
+                                    'attr': {
+                                        'class': 'form-control border-start-0',
+                                        'placeholder': 'Enter your email'
+                                    }
+                                }) }}
+                            </div>
+                            {{ form_errors(registration_form.email) }}
+                        </div>
 
-                <div class="mb-3">
-                    {{ form_label(registration_form.email) }}
-                    {{ form_widget(registration_form.email, {'attr': {'class': 'form-control'}}) }}
-                </div>
+                        <div class="mb-5">
+                            {{ form_label(registration_form.password, 'Password', {'label_attr': {'class': 'form-label fw-semibold mb-3 fs-5'}}) }}
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class="bi bi-lock fs-4"></i>
+                                </span>
+                                {{ form_widget(registration_form.password, {
+                                    'attr': {
+                                        'class': 'form-control border-start-0',
+                                        'placeholder': 'Create a password'
+                                    }
+                                }) }}
+                                <button class="btn btn-outline-secondary border-start-0" type="button" id="togglePassword">
+                                    <i class="bi bi-eye fs-4"></i>
+                                </button>
+                            </div>
+                            {{ form_errors(registration_form.password) }}
+                        </div>
 
-                <div class="mb-3">
-                    {{ form_label(registration_form.password) }}
-                    {{ form_widget(registration_form.password, {'attr': {'class': 'form-control'}}) }}
+                        <div class="d-grid mb-4">
+                            <button type="submit" class="btn btn-success btn-lg fs-5 py-3">
+                                <i class="bi bi-person-plus me-2"></i>Create Account
+                            </button>
+                        </div>
+
+                        <div class="text-center">
+                            <p class="mb-0 fs-5">Already have an account? 
+                                <a href="{{ path('app_security_login') }}" class="text-success text-decoration-none fw-semibold">Sign In</a>
+                            </p>
+                        </div>
+
+                        {{ form_end(registration_form) }}
+                    </div>
                 </div>
-                <div class="form-group text-end">
-                    <button type="submit" class="btn btn-primary w-25">Register</button>
-                 </div>
-                
-                {{ form_end(registration_form) }}
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.querySelector('input[type="password"]');
+            const icon = this.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            }
+        });
+    </script>
 {% endblock %}

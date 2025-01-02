@@ -1,0 +1,155 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Investment Reports - InvestmentPro{% endblock %}
+
+{% block body %}
+    <div class="container-fluid px-4">
+        <!-- Header Section -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="display-6 fw-semibold mb-1">Investment Reports</h1>
+                <p class="text-muted fs-5 mb-0">View and download your investment reports</p>
+            </div>
+            <div>
+                <button class="btn btn-outline-success">
+                    <i class="bi bi-download me-2"></i>Download All Reports
+                </button>
+            </div>
+        </div>
+
+        <!-- Reports Grid -->
+        <div class="row g-4">
+            <!-- Monthly Performance Report -->
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="rounded-circle bg-success bg-opacity-10 p-3">
+                                <i class="bi bi-graph-up text-success fs-4"></i>
+                            </div>
+                            <span class="badge bg-success">Latest</span>
+                        </div>
+                        <h5 class="card-title mb-3">Monthly Performance Report</h5>
+                        <p class="text-muted mb-3">Detailed analysis of your investment performance for the current month</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">Generated: Feb 2024</small>
+                            <button class="btn btn-sm btn-success">
+                                <i class="bi bi-file-earmark-pdf me-2"></i>View Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Portfolio Analysis -->
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="rounded-circle bg-primary bg-opacity-10 p-3">
+                                <i class="bi bi-pie-chart text-primary fs-4"></i>
+                            </div>
+                            <span class="badge bg-primary">Quarterly</span>
+                        </div>
+                        <h5 class="card-title mb-3">Portfolio Analysis</h5>
+                        <p class="text-muted mb-3">Comprehensive breakdown of your investment portfolio distribution</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">Generated: Q1 2024</small>
+                            <button class="btn btn-sm btn-primary">
+                                <i class="bi bi-file-earmark-pdf me-2"></i>View Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROI Summary -->
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="rounded-circle bg-warning bg-opacity-10 p-3">
+                                <i class="bi bi-cash-stack text-warning fs-4"></i>
+                            </div>
+                            <span class="badge bg-warning">Annual</span>
+                        </div>
+                        <h5 class="card-title mb-3">ROI Summary</h5>
+                        <p class="text-muted mb-3">Annual return on investment analysis across all properties</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">Generated: 2023</small>
+                            <button class="btn btn-sm btn-warning">
+                                <i class="bi bi-file-earmark-pdf me-2"></i>View Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tax Documents -->
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="rounded-circle bg-info bg-opacity-10 p-3">
+                                <i class="bi bi-file-text text-info fs-4"></i>
+                            </div>
+                            <span class="badge bg-info">Annual</span>
+                        </div>
+                        <h5 class="card-title mb-3">Tax Documents</h5>
+                        <p class="text-muted mb-3">Annual tax statements and related investment documents</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">Generated: 2023</small>
+                            <button class="btn btn-sm btn-info">
+                                <i class="bi bi-file-earmark-pdf me-2"></i>View Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Risk Assessment -->
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="rounded-circle bg-danger bg-opacity-10 p-3">
+                                <i class="bi bi-shield-check text-danger fs-4"></i>
+                            </div>
+                            <span class="badge bg-danger">Quarterly</span>
+                        </div>
+                        <h5 class="card-title mb-3">Risk Assessment</h5>
+                        <p class="text-muted mb-3">Detailed analysis of investment risks and market conditions</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">Generated: Q1 2024</small>
+                            <button class="btn btn-sm btn-danger">
+                                <i class="bi bi-file-earmark-pdf me-2"></i>View Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Market Analysis -->
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="rounded-circle bg-secondary bg-opacity-10 p-3">
+                                <i class="bi bi-building text-secondary fs-4"></i>
+                            </div>
+                            <span class="badge bg-secondary">Monthly</span>
+                        </div>
+                        <h5 class="card-title mb-3">Market Analysis</h5>
+                        <p class="text-muted mb-3">Real estate market trends and investment opportunities</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">Generated: Feb 2024</small>
+                            <button class="btn btn-sm btn-secondary">
+                                <i class="bi bi-file-earmark-pdf me-2"></i>View Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
