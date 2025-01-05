@@ -1,0 +1,87 @@
+# P2P Loan Investment Implementation Plan
+
+## 1. Database Structure
+
+### P2PLoan Entity
+- Fields:
+  * id (primary key)
+  * name (string, not null)
+  * initialInvestment (decimal, not null)
+  * totalPaymentsReceived (decimal) # For ROI calculation
+  * startDate (datetime)
+  * status (enum: current/late/default)
+  * description (text)
+  * loanType (enum: business/personal/real_estate)
+  * interestRate (decimal)
+  * term (integer, months)
+  * paymentSchedule (enum: monthly/quarterly/annually)
+  * platform (string)
+  * createdAt (datetime)
+  * updatedAt (datetime)
+  * user (ManyToOne relationship with User entity)
+
+## 2. Repository
+- P2PLoanRepository
+  * Find all user's loans
+  * ROI calculation: (totalPaymentsReceived - initialInvestment) / initialInvestment * 100
+  * Filter by status
+  * Sort by ROI
+
+## 3. Form
+- P2PLoanType
+  * All fields except id, createdAt, updatedAt
+  * Validation constraints
+  * Custom ROI calculation display
+
+## 4. Controller
+- P2PLoanController
+  * List all loans (index)
+  * Show loan details (show)
+  * Add new loan (new)
+  * Edit loan (edit)
+  * Delete loan (delete)
+  * Update payment received (updatePayment)
+
+## 5. Templates
+- p2p_loan/index.html.twig
+  * List view with ROI for each loan
+  * Sorting by ROI
+  * Filter by status
+- p2p_loan/show.html.twig
+  * Detailed loan view
+  * ROI calculation
+  * Payment history
+- p2p_loan/new.html.twig
+  * Loan creation form
+- p2p_loan/edit.html.twig
+  * Loan edit form
+
+## 6. Implementation Order
+1. Create P2PLoan entity and migration
+2. Create repository with ROI calculation
+3. Create form type
+4. Create controller with CRUD operations
+5. Create templates
+6. Add validation
+7. Implement security
+8. Add styling
+
+## 7. Additional Features
+- ROI Tracking
+  * Track payments received
+  * Calculate ROI
+- Sorting and Filtering
+  * Sort by ROI
+  * Filter by status
+  * Filter by platform
+
+## 8. Security
+- Role-based access control
+- Input validation
+- CSRF protection
+
+## 9. Future Enhancements
+- Payment schedule tracking
+- ROI charts
+- Export loan data
+- Email notifications for payments

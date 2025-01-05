@@ -8,6 +8,12 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class InvestmentController extends AbstractController
 {
+    #[Route('/investment/connect-paysera', name: 'app_connect_paysera')]
+    public function connectPaysera(): Response
+    {
+        return $this->render('investment/connect_paysera.html.twig');
+    }
+
     #[Route('/investment', name: 'app_investment')]
     public function index(): Response
     {

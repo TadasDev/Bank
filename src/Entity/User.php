@@ -27,7 +27,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $firstName = null; // New property
 
     #[ORM\Column(length: 255)]
-    private ?string $lastName = null; // New property
+    private ?string $lastName = null;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $isInvestor = false;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $isBorrower = false;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $hasPayseraConnected = false;
 
     /**
      * @var list<string> The user roles
@@ -79,9 +88,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->lastName;
     }
 
-    public function setLastName(string $lastName): self // Setter for lastName
+    public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
+        return $this;
+    }
+
+    public function isInvestor(): bool
+    {
+        return $this->isInvestor;
+    }
+
+    public function setIsInvestor(bool $isInvestor): self
+    {
+        $this->isInvestor = $isInvestor;
+        return $this;
+    }
+
+    public function isBorrower(): bool
+    {
+        return $this->isBorrower;
+    }
+
+    public function setIsBorrower(bool $isBorrower): self
+    {
+        $this->isBorrower = $isBorrower;
+        return $this;
+    }
+
+    public function hasPayseraConnected(): bool
+    {
+        return $this->hasPayseraConnected;
+    }
+
+    public function setHasPayseraConnected(bool $hasPayseraConnected): self
+    {
+        $this->hasPayseraConnected = $hasPayseraConnected;
         return $this;
     }
 
